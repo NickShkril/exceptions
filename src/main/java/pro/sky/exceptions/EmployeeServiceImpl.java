@@ -2,13 +2,16 @@ package pro.sky.exceptions;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    private final Employee[] employees;
-    private int size;
+    private final List<Employee> employeeList;
 
     public EmployeeServiceImpl() {
-        employees = new Employee[10];
+        employeeList = new ArrayList<>();
     }
 
     @Override
@@ -19,14 +22,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee add(Employee employee) {
-        if (size == employees.length) {
-            throw new EmployeeBookOverflowException("Книга переполнна");
+        if (!employeeList.add(employee)) {
+            throw new EmployeeExistsException("Сотрудник добавлен");
+        } else if (!employeeList.contains(employee)) {
+            throw new EmployeeExistsException("Сотрудник уже добавлен");
         }
-        int index = indexOf(employee);
-        if (index != -1) {
-            throw new EmployeeExistsException("Сотрудник уже существует");
-        }
-        employees[size++] = employee;
         return employee;
     }
 
@@ -39,34 +39,25 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee remove(Employee employee) {
-        int index = indexOf(employee);
-
-        if (index != -1) {
-            Employee result = employees[index];
-            System.arraycopy(employees, index + 1, employees, index, size - index);
-            size--;
-            return result;
+        if (!employeeList.remove(employee)) {
+            throw new EmployeeNotFoundExceptiion("Сотрудник удален");
         }
-        throw new EmployeeNotFoundExceptiion("Сотрудник не найден");
+        return employee;
     }
+
 
     @Override
     public Employee find(String firstName, String lastName) {
-        Employee newEmployee = new Employee(firstName, lastName);
-        int index = indexOf(newEmployee);
-
-        if (index != -1) {
-            return employees[index];
+        Employee employee = new Employee(firstName, lastName);
+        if (!employeeList.contains(employee)) {
+            throw new RuntimeException("Сотрудник не найден");
         }
-        throw new EmployeeNotFoundExceptiion("Сотрудник не найден");
+        return employee;
     }
 
-    private int indexOf(Employee employee) {
-        for (int i = 0; i < size; i++) {
-            if (employees[i].equals(employee)) {
-                return i;
-            }
-        }
-        return -1;
+
+    @Override
+    public Collection<Employee> getAll() {
+        return List.copyOf(employeeList);
     }
 }
