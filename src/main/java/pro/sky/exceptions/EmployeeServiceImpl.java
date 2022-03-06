@@ -2,62 +2,57 @@ package pro.sky.exceptions;
 
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    private final List<Employee> employeeList;
+    private final Map<String, Employee> employeeList;
 
     public EmployeeServiceImpl() {
-        employeeList = new ArrayList<>();
+        employeeList = new HashMap<>();
     }
 
     @Override
     public Employee add(String firstName, String lastName) {
-        Employee newEmployee = new Employee(firstName, lastName);
-        return add(newEmployee);
-    }
-
-    @Override
-    public Employee add(Employee employee) {
-        if (!employeeList.add(employee)) {
-            throw new EmployeeExistsException("Сотрудник добавлен");
-        } else if (!employeeList.contains(employee)) {
-            throw new EmployeeExistsException("Сотрудник уже добавлен");
+        String key = getKey(firstName, lastName);
+        if (employeeList.containsKey(key)) {
+            throw new EmployeeExistsException("Сотрудник уже есть в списке");
         }
-        return employee;
+        Employee newEmployee = new Employee(firstName, lastName);
+        employeeList.put(key, newEmployee);
+        return newEmployee;
     }
-
 
     @Override
     public Employee remove(String firstName, String lastName) {
-        Employee newEmployee = new Employee(firstName, lastName);
-        return remove(newEmployee);
-    }
-
-    @Override
-    public Employee remove(Employee employee) {
-        if (!employeeList.remove(employee)) {
-            throw new EmployeeNotFoundExceptiion("Сотрудник удален");
+        String key = getKey(firstName, lastName);
+        if (employeeList.remove(key) == null) {
+            throw new EmployeeNotFoundExceptiion("Сотрудника нет в списке");
         }
-        return employee;
+        Employee removedEmployee = new Employee(firstName, lastName);
+        return removedEmployee;
     }
-
 
     @Override
     public Employee find(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
-        if (!employeeList.contains(employee)) {
+        String key = getKey(firstName, lastName);
+        Employee employee = employeeList.get(key);
+        if (employee == null) {
             throw new RuntimeException("Сотрудник не найден");
         }
+
         return employee;
     }
 
-
     @Override
     public Collection<Employee> getAll() {
-        return List.copyOf(employeeList);
+        return Collections.unmodifiableCollection(employeeList.values());
+    }
+
+    private String getKey(String firstName, String lastName) {
+        return firstName + " " + lastName;
     }
 }
