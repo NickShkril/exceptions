@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
 
+
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
@@ -19,27 +20,71 @@ public class EmployeeController {
 
 
     @GetMapping(path = "/add")
-    public String add(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
-        Employee result = employeeService.add(firstName, lastName);
-        String message = "Сотрудник " + result.getFirstName() + " " + result.getLastName() + " Успешно создан.";
-        return message;
+    public Employee add(@RequestParam("firstName") String firstName,
+                        @RequestParam("lastName") String lastName,
+                        @RequestParam("department") int department,
+                        @RequestParam("salary") int salary) {
+        return employeeService.add(firstName, lastName, department, salary);
+
     }
 
 
     @GetMapping(path = "/remove")
-    public String remove(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
-        Employee result = employeeService.remove(firstName, lastName);
-        String message = "Сотрудник " + result.getFirstName() + " " + result.getLastName() + " Успешно удален.";
-        return message;
+    public Employee remove(@RequestParam("firstName") String firstName,
+                           @RequestParam("lastName") String lastName) {
+        return employeeService.remove(firstName, lastName);
     }
 
     @GetMapping(path = "/find")
-    public Employee find(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
+    public Employee find(@RequestParam("firstName") String firstName,
+                         @RequestParam("lastName") String lastName) {
         return employeeService.find(firstName, lastName);
     }
 
-    @GetMapping(path = "/all")
-    public Collection<Employee> all() {
-        return employeeService.getAll();
-    }
+//    @GetMapping(path = "/all")
+//    public Collection<Employee> all() {
+//        return employeeService.getAll();
+//    }
 }
+
+//    @GetMapping(path = "/max-salary")
+//    public String maxSalary(@RequestParam("firstName") String firstName,
+//                            @RequestParam("lastName") String lastName,
+//                            @RequestParam("department") int department,
+//                            @RequestParam("salary") int salary) {
+//        Employee result = employeeService.max_salary(firstName, lastName, department, salary);
+//        String message = "Сотрудник с наибеольшей зарплатой " + result.getFirstName() + " " + result.getLastName() + " в отделе под номером " + result.getDepartment();
+//        return message;
+//    }
+//
+//    @GetMapping(path = "/min-salary")
+//    public String minSalary(@RequestParam("firstName") String firstName,
+//                            @RequestParam("lastName") String lastName,
+//                            @RequestParam("department") int department,
+//                            @RequestParam("salary") int salary) {
+//        Employee result = employeeService.add(firstName, lastName, department, salary);
+//        String message = "Сотрудник с наименьшей зарплатой " + result.getFirstName() + " " + result.getLastName() + " в отделе под номером " + result.getDepartment();
+//        return message;
+//    }
+//
+//    @GetMapping(path = "/allInDep")
+//    public String allInDep(@RequestParam("firstName") String firstName,
+//                           @RequestParam("lastName") String lastName,
+//                           @RequestParam("department") int department,
+//                           @RequestParam("salary") int salary) {
+//        Employee result = employeeService.add(firstName, lastName, department, salary);
+//        String message = "Сотрудники отдела " + result.getDepartment() + ": " + result.getFirstName() + " " + result.getLastName();
+//        return message;
+//    }
+
+//    @GetMapping(path = "/pizda")
+//    public String all(@RequestParam("firstName") String firstName,
+//                      @RequestParam("lastName") String lastName,
+//                      @RequestParam("department") int department,
+//                      @RequestParam("salary") int salary) {
+//        Employee result = employeeService.add(firstName, lastName, department, salary);
+//        String message = "Сотрудники отдела " + result.getDepartment() + ": " + result.getFirstName() + " " + result.getLastName();
+//        return message;
+//    }
+
+

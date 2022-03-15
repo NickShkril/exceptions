@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class EmployeeNotFoundExceptiion extends RuntimeException {
-    EmployeeNotFoundExceptiion(String notFound) {
+    public EmployeeNotFoundExceptiion(String notFound) {
         super(notFound);
     }
 }
