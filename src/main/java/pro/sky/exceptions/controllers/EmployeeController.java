@@ -1,11 +1,12 @@
-package pro.sky.exceptions;
+package pro.sky.exceptions.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Collection;
+import pro.sky.exceptions.Employee;
+import pro.sky.exceptions.services.EmployeeService;
 
 
 @RestController
@@ -13,7 +14,7 @@ import java.util.Collection;
 public class EmployeeController {
     private final EmployeeService employeeService;
 
-
+    @Autowired
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }

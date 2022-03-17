@@ -1,10 +1,10 @@
-package pro.sky.exceptions;
+package pro.sky.exceptions.imple;
 
 import org.springframework.stereotype.Service;
-import pro.sky.exceptions.DepartmentService;
 import pro.sky.exceptions.Employee;
-import pro.sky.exceptions.EmployeeNotFoundExceptiion;
-import pro.sky.exceptions.EmployeeService;
+import pro.sky.exceptions.excep.EmployeeNotFoundExceptiion;
+import pro.sky.exceptions.services.DepartmentService;
+import pro.sky.exceptions.services.EmployeeService;
 
 import java.util.Collection;
 import java.util.Comparator;
@@ -15,11 +15,11 @@ import java.util.stream.Collectors;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
-    private final EmployeeService employeeService;
-
     public DepartmentServiceImpl(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
+
+    private final EmployeeService employeeService;
 
 
     @Override

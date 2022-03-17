@@ -1,9 +1,11 @@
-package pro.sky.exceptions;
+package pro.sky.exceptions.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pro.sky.exceptions.Employee;
+import pro.sky.exceptions.services.DepartmentService;
 
 import java.util.Collection;
 import java.util.List;
@@ -34,7 +36,7 @@ public class DepartmentController {
     }
 
     @GetMapping(path = "/all")
-    public Map<Integer, List<Employee>> findEmployeesByDepartment() {
+    public Map<Integer, List<Employee>> findAllEmployees() {
         return departmentService.findAllEmployees();
     }
 }

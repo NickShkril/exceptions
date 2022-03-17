@@ -1,4 +1,4 @@
-package pro.sky.exceptions;
+package pro.sky.exceptions.services;
 
 import pro.sky.exceptions.Employee;
 
