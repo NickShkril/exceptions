@@ -14,6 +14,6 @@ public interface DepartmentService {
 
     Map<Integer, List<Employee>> findAllEmployees();
 
-    Collection<Employee> findEmployeesByDepartment(int departmentId);
+    Collection<Employee> findEmployeesByDepartment(Integer departmentId);
 }
 

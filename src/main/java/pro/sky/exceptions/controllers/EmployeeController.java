@@ -19,7 +19,6 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-
     @GetMapping(path = "/add")
     public Employee add(@RequestParam("firstName") String firstName,
                         @RequestParam("lastName") String lastName,
@@ -28,7 +27,6 @@ public class EmployeeController {
         return employeeService.add(firstName, lastName, department, salary);
 
     }
-
 
     @GetMapping(path = "/remove")
     public Employee remove(@RequestParam("firstName") String firstName,
@@ -41,51 +39,5 @@ public class EmployeeController {
                          @RequestParam("lastName") String lastName) {
         return employeeService.find(firstName, lastName);
     }
-
-//    @GetMapping(path = "/all")
-//    public Collection<Employee> all() {
-//        return employeeService.getAll();
-//    }
 }
-
-//    @GetMapping(path = "/max-salary")
-//    public String maxSalary(@RequestParam("firstName") String firstName,
-//                            @RequestParam("lastName") String lastName,
-//                            @RequestParam("department") int department,
-//                            @RequestParam("salary") int salary) {
-//        Employee result = employeeService.max_salary(firstName, lastName, department, salary);
-//        String message = "Сотрудник с наибеольшей зарплатой " + result.getFirstName() + " " + result.getLastName() + " в отделе под номером " + result.getDepartment();
-//        return message;
-//    }
-//
-//    @GetMapping(path = "/min-salary")
-//    public String minSalary(@RequestParam("firstName") String firstName,
-//                            @RequestParam("lastName") String lastName,
-//                            @RequestParam("department") int department,
-//                            @RequestParam("salary") int salary) {
-//        Employee result = employeeService.add(firstName, lastName, department, salary);
-//        String message = "Сотрудник с наименьшей зарплатой " + result.getFirstName() + " " + result.getLastName() + " в отделе под номером " + result.getDepartment();
-//        return message;
-//    }
-//
-//    @GetMapping(path = "/allInDep")
-//    public String allInDep(@RequestParam("firstName") String firstName,
-//                           @RequestParam("lastName") String lastName,
-//                           @RequestParam("department") int department,
-//                           @RequestParam("salary") int salary) {
-//        Employee result = employeeService.add(firstName, lastName, department, salary);
-//        String message = "Сотрудники отдела " + result.getDepartment() + ": " + result.getFirstName() + " " + result.getLastName();
-//        return message;
-//    }
-
-//    @GetMapping(path = "/pizda")
-//    public String all(@RequestParam("firstName") String firstName,
-//                      @RequestParam("lastName") String lastName,
-//                      @RequestParam("department") int department,
-//                      @RequestParam("salary") int salary) {
-//        Employee result = employeeService.add(firstName, lastName, department, salary);
-//        String message = "Сотрудники отдела " + result.getDepartment() + ": " + result.getFirstName() + " " + result.getLastName();
-//        return message;
-//    }
-
 

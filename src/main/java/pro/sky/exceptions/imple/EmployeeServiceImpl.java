@@ -17,21 +17,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     public EmployeeServiceImpl() {
         employeeList = new HashMap<>();
-        employeeList.put("one", new Employee("Petya", "Petya",2,222));
-        employeeList.put("two", new Employee("Vasya", "Vasya",2,222));
-        employeeList.put("three", new Employee("Sasha", "Sasha",3,333));
-        employeeList.put("three", new Employee("Sasha", "Sasha",3,3333));
+        employeeList.put("one", new Employee("Petya", "Petya", 2, 222));
+        employeeList.put("two", new Employee("Vasya", "Vasya", 2, 222));
+        employeeList.put("three", new Employee("Sasha", "Sasha", 3, 333));
+        employeeList.put("three", new Employee("Sasha", "Sasha", 3, 3333));
 
     }
 
 
-    @Override
     public Employee add(String firstName, String lastName, int department, int salary) {
         String key = getKey(firstName, lastName);
         if (employeeList.containsKey(key)) {
             throw new EmployeeExistsException("Сотрудник уже есть в списке");
         }
-        Employee newEmployee = new Employee(firstName, lastName, salary,department);
+        Employee newEmployee = new Employee(firstName, lastName, salary, department);
         employeeList.put(key, newEmployee);
         return newEmployee;
     }
@@ -47,7 +46,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (employeeList.remove(key) == null) {
             throw new EmployeeNotFoundExceptiion("Сотрудника нет в списке");
         }
-        Employee removedEmployee = new Employee(firstName, lastName,department,salary);
+        Employee removedEmployee = new Employee(firstName, lastName, department, salary);
         return removedEmployee;
     }
 
@@ -62,15 +61,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employee;
     }
 
-
     @Override
     public Collection<Employee> getAll() {
         return Collections.unmodifiableCollection(employeeList.values());
     }
 
-
     private String getKey(String firstName, String lastName) {
-        return firstName + " " + lastName;
+        return firstName + lastName;
     }
 }
 
