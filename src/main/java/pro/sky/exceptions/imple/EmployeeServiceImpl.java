@@ -11,6 +11,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.apache.commons.lang3.StringUtils.isAlpha;
+import static org.apache.commons.lang3.StringUtils.capitalize;
+
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     private final Map<String, Employee> employeeList;
@@ -21,18 +24,31 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeList.put("two", new Employee("Vasya", "Vasya", 2, 222));
         employeeList.put("three", new Employee("Sasha", "Sasha", 3, 333));
         employeeList.put("three", new Employee("Sasha", "Sasha", 3, 3333));
-
     }
 
 
     public Employee add(String firstName, String lastName, int department, int salary) {
-        String key = getKey(firstName, lastName);
-        if (employeeList.containsKey(key)) {
+        validateNames(firstName, lastName);
+        Employee newEmployee = new Employee(
+                capitalize(firstName),
+                capitalize(lastName),
+                department,
+                salary
+        );
+        if (employeeList.containsKey(getKey(firstName, lastName))) {
             throw new EmployeeExistsException("Сотрудник уже есть в списке");
         }
-        Employee newEmployee = new Employee(firstName, lastName, salary, department);
-        employeeList.put(key, newEmployee);
+
+        employeeList.put(getKey(firstName, lastName), newEmployee);
         return newEmployee;
+    }
+
+    private void validateNames(String... names) {
+        for (String name : names) {
+            if (!isAlpha(name)) {
+                throw new EmployeeExistsException("Неправильное имя");
+            }
+        }
     }
 
     @Override
