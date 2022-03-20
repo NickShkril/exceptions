@@ -11,8 +11,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.apache.commons.lang3.StringUtils.isAlpha;
 import static org.apache.commons.lang3.StringUtils.capitalize;
+import static org.apache.commons.lang3.StringUtils.isAlpha;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -46,7 +46,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private void validateNames(String... names) {
         for (String name : names) {
             if (!isAlpha(name)) {
-                throw new EmployeeExistsException("Неправильное имя");
+                throw new EmployeeExistsException("Неправильное имя или фамилия");
             }
         }
     }
